@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi página estática para archivo</title>
+    <script>
+      fetch("https://api.github.com/repos/stiven1707/archivos/contents/")
+        .then((response) => response.json())
+        .then((data) => {
+          const listaArchivos = document.getElementById("lista-archivos");
+          data.forEach((archivo) => {
+            const enlace = document.createElement("a");
+            enlace.textContent = archivo.name;
+            enlace.href = `https://stiven1707.github.io/archivos/${archivo.name}`;
+            enlace.target = "_blank";
+            const elementoLista = document.createElement("li");
+            elementoLista.appendChild(enlace);
+            listaArchivos.appendChild(elementoLista);
+          });
+        })
+        .catch((error) => console.error(error));
+    </script>
+  </head>
+  <body>
+    <h1>Archivos en mi repositorio</h1>
+    <ul id="lista-archivos"></ul>
+  </body>
+</html>
